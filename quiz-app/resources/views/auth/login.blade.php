@@ -1,9 +1,21 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+   <title>@section('title', 'Login Page')</title>
     <form method="POST" action="{{ route('login') }}">
         @csrf
+        <p class="ml-44 text-2xl text-gray-800 dark:text-gray-400"> Login </p>
+
+        <!-- User Role -->
+        <div>
+            <x-input-label for="user_role" :value="__('User Role')" />
+            <select name="user_role" id="user_role" class="rounded-md border-gray-200 mb-4 mt-2 w-full block font-medium text-sm text-gray-500 dark:text-gray-300">
+                <option value=""> Select User Role</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+            <x-input-error :messages="$errors->get('user_role')" class="mt-2" />
+        </div>
 
         <!-- Email Address -->
         <div>
@@ -32,16 +44,22 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-around mt-4">
+            <!-- Sign Up -->
+            <div class="ml-0 text-gray-500">
+                <label for="remember_me" class="inline-flex items-center">
+
+                </label>
+                <a  onclick="window.location.href='{{route('register')}}'" class="mr-6 ml-0 underline ms-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-500 cursor-pointer">{{ __('Create New Account') }}</a>
+            </div>
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
         </div>
+        <x-primary-button class="block ms-3 mt-3 w-full justify-center">
+            {{ __('Log in') }}
+        </x-primary-button>
     </form>
 </x-guest-layout>

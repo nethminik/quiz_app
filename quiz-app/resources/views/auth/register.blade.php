@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" class="mb-12">
         @csrf
-
+        <p class="flex justify-center font-medium text-2xl text-gray-700 dark:text-gray-300">Register</p>
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -14,6 +14,17 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- User Role -->
+        <div>
+            <x-input-label class="mt-5 mb-2" for="user_role" :value="__('User Role')" />
+            <select name="user_role" id="user_role" class="rounded-md border-gray-200 mb-4 mt-2 w-full block font-medium text-sm text-gray-500 dark:text-gray-300">
+                <option value=""> Select User Role</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+            <x-input-error :messages="$errors->get('user_role')" class="mt-2" />
         </div>
 
         <!-- Password -->
